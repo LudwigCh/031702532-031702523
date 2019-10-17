@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hi</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+</head>
+<body>
+	<!--
+		"checkbox",	:选择框
+		"contextmenu",：修改，右键节点，显示操作菜单
+		"dnd",		：拖放功能，整理节点		要想开启需要将core的check_callback设置为true
+		"massload",	：懒加载
+		"search",
+		"sort",	：排序
+		"state",	：保存状态
+		"types",
+		"unique",	：唯一插件
+		"wholerow",:整行，一个条目占满一行
+		"changed",
+		"conditionalselect"
+	-->
+<input type="search" id="plugins4_q"/>
+<div id="jstree_demo_div">
+</div>
+<form>
+<textarea id = "message" rows="10" cols="30">
+</textarea>
+</form>
+<button id ="btn">click me</button>
+</body>
+
+<script type="text/javascript">
+String.prototype.removeBlankLines = function () {
+	return this.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g, '')
+}
+function trimSpace(array){  
+     for(var i = 0 ;i<array.length;i++)  
+     {  
+         if(array[i] == "" || array[i] == null || typeof(array[i]) == "undefined")  
+         {  
+                  array.splice(i,1);  
+                  i= i-1;  
+
+         }  
+     }  
+     return array;  
+}  
+
+	   // var str ='导师：张三
+				// 2016级博士生：天一、王二、吴五
+				// 2015级硕士生：李四、王五、许六
+				// 2016级硕士生：刘一、李二、李三
+				// 2017级本科生：刘六、琪七、司四';
+		var str = String();
+		var result = [];
+		$("#btn").click(function(){
+		alert($("#message").val());
+		str = document.getElementById("message").value; 
+		str=str.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g,'');
+
+		console.log(str); 
+		var arrStr2=str.split("导师：");
+		console.log(arrStr2);
+
+    arrStr2.map(k => {
+		let  item1 = k.split("\n");
+		item1=trimSpace(item1);
+		console.log(item1);
+        var pa = item1[0];
+        item1.map(i => {
+		        let  item = i.split("：");
+		        let cur = item[1]; 
+		        if (i.indexOf("级") == -1) {
+			      result.push({
+			        id: item[0],    
+			        parent: "#",
+			        text: item[0],
+			      })
+                } 
+                 else 
+                {
+			      result.push({
+				  id:item[0],
+				  parent:pa,
+				  text:item[0],
+			      })
+                let eee=cur.split("、");
+                eee.map(j => {
+                    let  item2 = j;
+                    result.push({
+                        id:item2,
+                        parent:item[0],
+                        text:item2,
+                    })
+                })
+
+	            }
+		})
+    })
+            console.log(result)
+
+    // 选择的时候调用的方法
+    $('#jstree_demo_div').on("changed.jstree", function (e, data) {
+      console.log(data.selected);
+      console.log("selected");
+    });
+    //
+    $('a').on('click', function () {
+        //get_selected返回选中的列
+        console.log($('#jstree_demo_div').jstree().get_selected(true));
+    });
+	$('#html').jstree();
+    //一般data从后台返回，调用这个方法显示视图
+    $('#jstree_demo_div').jstree({
+    		'plugins':["search","themes","types","state","line"], 	//包含样式，选择框，图片等	
+			'types': {
+		        'default': {
+		            'icon': true // 默认图标,可以写路径名，但是必须将themes的icons打开，否则没有地方展示图标
+		        },
+		   },
+		    
+		    
+		    "checkbox":{  // 去除checkbox插件的默认效果
+		        tie_selection : true,
+		        keep_selected_style : true,
+		        whole_node : true
+		    },
+		   
+	    
+			'core' : {	//core主要功能是控制树的形状，单选多选等等
+				'data' :result,	
+				//填充数据,data需要识别格式,关键字为id, text,children,展示时显示的是text,传递的可以是id也可以是text
+
+			 
+				'themes':{
+					"icons":true,	//默认图标
+					"theme": "classic",
+					"dots": true,
+					"stripes" : true,	//增加条纹
+				},	//关闭文件夹样式
+				'dblclick_toggle': true,   //允许tree的双击展开,默认是true
+				"multiple" : false, // 单选
+				"check_callback" : true
+			} 
+		}
+	)
+	
+	// 搜索功能的方法 jstree_demo_div：数据展示的内容    plugins4_q 搜索框
+		var to = false;
+		$('#plugins4_q').keyup(function () {
+		    if(to) { clearTimeout(to); }
+		    	to = setTimeout(function () {
+		      	var v = $('#plugins4_q').val();
+		      	$('#jstree_demo_div').jstree(true).search(v);
+		    }, 250);
+		});
+	    }
+	)
+	
+		</script>
+</html>
