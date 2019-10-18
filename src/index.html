@@ -47,7 +47,7 @@ function trimSpace(array){
      return array;  
 	 //去除字符数组中的空值
 }  
-	   // var str ='导师：张三
+	             // var str ='导师：张三
 				// 2016级博士生：天一、王二、吴五
 				// 2015级硕士生：李四、王五、许六
 				// 2016级硕士生：刘一、李二、李三
@@ -56,15 +56,12 @@ function trimSpace(array){
 		var result = [];                     //result存放想要得到的数据格式
 		$("#btn").click(function(){          //点击click button后响应结果
 		str = sessionStorage.getItem('data'); 
-		str=str.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g,'');
+		str=str.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g,'');//去除数据中的空行
+		var arrStr2=str.split("导师：");//分割出每个师生树数据
 
-		console.log(str); 
-		var arrStr2=str.split("导师：");
-		console.log(arrStr2);
-
-    arrStr2.map(k => {
-		let  item1 = k.split("\n");
-		item1=trimSpace(item1);
+    arrStr2.map(k => {                //对每组师生树进行遍历，下面代码提供相关操作
+		let  item1 = k.split("\n");   //分割出师生树每条数据
+		item1=trimSpace(item1);       //去除字符数组中的空字符
 		console.log(item1);
         var pa = item1[0];
         item1.map(i => {
@@ -73,7 +70,7 @@ function trimSpace(array){
 		        if (i.indexOf("级") == -1) {
 			      result.push({
 			        id: item[0],    
-			        parent: "#",
+			        parent: "#",        //判断为老师，设置为根节点
 			        text: item[0],
 			      })
                 } 
@@ -81,7 +78,7 @@ function trimSpace(array){
                 {
 			      result.push({
 				  id:item[0],
-				  parent:pa,
+				  parent:pa,            //否则判断为xx年级xx生，新建此节点。父节点为该组老师
 				  text:item[0],
 			      })
                 let eee=cur.split("、");
@@ -89,7 +86,7 @@ function trimSpace(array){
                     let  item2 = j;
                     result.push({
                         id:item2,
-                        parent:item[0],
+                        parent:item[0],   //添加对应属性的学生节点
                         text:item2,
                     })
                 })
