@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的网页</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/type.css">
+    <script>
+        function click1(){
+            var data = String();
+            data = document.getElementById("text").value;
+            sessionStorage.setItem('data',data);
+            window.open('index.html','_self');
+        }
+    </script>
+<body class="bg">
+    <div class="class1">
+        <img src="css/favicon1.ico" id="tree1">
+        <a id="titlea">学术家族树</a>
+    </div>
+    <div class="class2">
+        <textarea id="text" placeholder="请输入数据" rows="12.5" cols="100" style="background-color: rgba(206, 188, 183, 0.5);"></textarea><hr>
+        <form>    
+            <input type="button" onclick="click1()" value="提交" class="but">
+        </form>
+    </div>
+</body>
+</head>
+</html>
