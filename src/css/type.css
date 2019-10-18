@@ -1,0 +1,35 @@
+.bg{
+    background-image: url(allbg2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#text{
+    border: 3px solid rgb(195, 185, 233);
+    background-color: rgb(206, 188, 183);
+    font-size: 20px;
+    font-weight: bold;
+}
+.class1{
+    text-align: center;
+    margin-top: 75px;
+}
+.class2{
+    text-align: center;
+    margin-top: 210px;
+}
+.but{
+    width: 100px;
+    height: 30px;
+    opacity: 0.7;
+}
+#tree1{
+    width: 45px;
+    height: 45px;
+    margin-top: 0px;
+}
+#titlea{
+    margin-top: 50px;
+    font-style:italic;
+    font-size: 40px;
+    text-align: center;
+}

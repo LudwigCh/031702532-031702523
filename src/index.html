@@ -3,38 +3,36 @@
 <head>
     <title>Hi</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <link rel="stylesheet" href="dist/themes/default/style.min.css" />
+    <script src="dist/jQuery-3.4.1.js"></script>
+	<script src="dist/jstree.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/type.css">
+	<style type="text/css">
+		#plugins4_q{
+			opacity: 0.5;
+			width: 400px;
+			height: 40px;
+		}
+		#btn{
+			font-size: 20px;
+			opacity: 0.5;
+		}
+	</style>
 </head>
-<body>
-	<!--
-		"checkbox",	:选择框
-		"contextmenu",：修改，右键节点，显示操作菜单
-		"dnd",		：拖放功能，整理节点		要想开启需要将core的check_callback设置为true
-		"massload",	：懒加载
-		"search",
-		"sort",	：排序
-		"state",	：保存状态
-		"types",
-		"unique",	：唯一插件
-		"wholerow",:整行，一个条目占满一行
-		"changed",
-		"conditionalselect"
-	-->
-<input type="search" id="plugins4_q"/>
+<body class="bg">
+
+<input type="search" id="plugins4_q" placeholder="输入你要查找的内容"/>
 <div id="jstree_demo_div">
 </div>
-<form>
-<textarea id = "message" rows="10" cols="30">
-</textarea>
-</form>
-<button id ="btn">click me</button>
+<button id ="btn">生成树</button>
+
 </body>
+
 
 <script type="text/javascript">
 String.prototype.removeBlankLines = function () {
 	return this.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g, '')
+	//去除字符串中的空行
 }
 function trimSpace(array){  
      for(var i = 0 ;i<array.length;i++)  
@@ -47,18 +45,17 @@ function trimSpace(array){
          }  
      }  
      return array;  
+	 //去除字符数组中的空值
 }  
-
 	   // var str ='导师：张三
 				// 2016级博士生：天一、王二、吴五
 				// 2015级硕士生：李四、王五、许六
 				// 2016级硕士生：刘一、李二、李三
 				// 2017级本科生：刘六、琪七、司四';
 		var str = String();
-		var result = [];
-		$("#btn").click(function(){
-		alert($("#message").val());
-		str = document.getElementById("message").value; 
+		var result = [];                     //result存放想要得到的数据格式
+		$("#btn").click(function(){          //点击click button后响应结果
+		str = sessionStorage.getItem('data'); 
 		str=str.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g,'');
 
 		console.log(str); 
@@ -118,7 +115,7 @@ function trimSpace(array){
     		'plugins':["search","themes","types","state","line"], 	//包含样式，选择框，图片等	
 			'types': {
 		        'default': {
-		            'icon': true // 默认图标,可以写路径名，但是必须将themes的icons打开，否则没有地方展示图标
+					'icon': "css/123.jpg" 
 		        },
 		   },
 		    
@@ -136,11 +133,11 @@ function trimSpace(array){
 
 			 
 				'themes':{
-					"icons":true,	//默认图标
-					"theme": "classic",
+					"icons":"css/123.jpg",	
+					"theme":"classic",
 					"dots": true,
 					"stripes" : true,	//增加条纹
-				},	//关闭文件夹样式
+				},
 				'dblclick_toggle': true,   //允许tree的双击展开,默认是true
 				"multiple" : false, // 单选
 				"check_callback" : true
@@ -159,6 +156,6 @@ function trimSpace(array){
 		});
 	    }
 	)
-	
+		
 		</script>
 </html>
